@@ -47,7 +47,7 @@ const authOption = {
   },
   callbacks: {
     async session({ session, token }) {
-      // Attach additional user info to the session
+     
       session.user.id = token.id;
       session.user.name = token.name;
       session.user.lastname = token.lastname;

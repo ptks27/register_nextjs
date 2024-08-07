@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
 function Register() {
   const [name, setName] = useState("");
@@ -34,7 +34,16 @@ function Register() {
       return;
     }
 
-    if (!name || !lastname || !day || !month || !year || !email || !password || !confirmPassword) {
+    if (
+      !name ||
+      !lastname ||
+      !day ||
+      !month ||
+      !year ||
+      !email ||
+      !password ||
+      !confirmPassword
+    ) {
       setError("Please complete all inputs!");
       return;
     }
@@ -46,18 +55,13 @@ function Register() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
-          lastname,
-          day,
-          month,
-          year,
           email,
         }),
       });
 
-      const { user } = await resCheckUser.json();
+      const dataCheckUser = await resCheckUser.json();
 
-      if (user) {
+      if (dataCheckUser.user) {
         setError("User already exists!");
         return;
       }
@@ -78,15 +82,17 @@ function Register() {
         }),
       });
 
+      const data = await res.json();
+
       if (res.ok) {
         setError("");
         setSuccess("User registration successful!");
         router.push('/homepage');
       } else {
-        console.log("User registration failed.");
+        setError(data.message || "User registration failed.");
       }
     } catch (error) {
-      console.log("Error during registration: ", error);
+      setError("Error during registration: " + error.message);
     }
   };
 

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 function Register() {
   const [name, setName] = useState("");
@@ -26,8 +26,6 @@ function Register() {
     return null;
   }
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -36,22 +34,13 @@ function Register() {
       return;
     }
 
-    if (
-      !name ||
-      !lastname ||
-      !day ||
-      !month ||
-      !year ||
-      !email ||
-      !password ||
-      !confirmPassword
-    ) {
+    if (!name || !lastname || !day || !month || !year || !email || !password || !confirmPassword) {
       setError("Please complete all inputs!");
       return;
     }
 
     try {
-      const resCheckUser = await fetch("https://register-nextjs.vercel.app/api/checkUser", {
+      const resCheckUser = await fetch("/api/checkUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +62,7 @@ function Register() {
         return;
       }
 
-      const res = await fetch("https://register-nextjs.vercel.app/api/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

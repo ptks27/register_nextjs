@@ -51,7 +51,7 @@ function Register() {
     }
 
     try {
-      const resCheckUser = await fetch("http://localhost:3000/api/checkUser", {
+      const resCheckUser = await fetch("https://register-nextjs.vercel.app/api/checkUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ function Register() {
         return;
       }
 
-      const res = await fetch("http://localhost:3000/api/register", {
+      const res = await fetch("https://register-nextjs.vercel.app/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
